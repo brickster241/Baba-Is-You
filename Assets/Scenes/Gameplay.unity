@@ -334,7 +334,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1822506844}
   - component: {fileID: 1822506845}
-  - component: {fileID: 1822506846}
   m_Layer: 0
   m_Name: Block
   m_TagString: Untagged
@@ -398,7 +397,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 18acd070f27d1994f8873bd63798e720, type: 3}
+  m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -409,22 +408,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1822506846
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1822506843}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41da9ff301304b14bb8dec70858c8915, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  blockType: 2
-  propertyType: 0
-  nounType: 2
-  blockConfigurations: {fileID: 11400000, guid: b2a5b6b502233e34b9fb89b440757f8b, type: 2}
 --- !u!1 &1891894982
 GameObject:
   m_ObjectHideFlags: 0
