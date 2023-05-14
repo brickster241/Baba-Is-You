@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Wall-Text
   m_EditorClassIdentifier: 
   blockType: 2
-  nounType: 4
+  nounType: 0
   propertyType: 0
+  nounTextType: 4
+  propertyTextType: 0
   blockSprite: {fileID: 21300000, guid: 933142c9f9b7cb842b4ab41cf1a77216, type: 3}

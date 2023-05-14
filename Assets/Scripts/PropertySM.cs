@@ -15,6 +15,7 @@ public class PropertySM
     
     
     public PropertySM(BlockController blockController) {
+        propertyStatus = new Dictionary<PropertyType, bool>();
         this.blockController = blockController;
         for (int i = 0; i < Constants.propertyTypes.Length; i++) {
             propertyStatus[Constants.propertyTypes[i]] = false;

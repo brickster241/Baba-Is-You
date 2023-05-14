@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Baba-Text
   m_EditorClassIdentifier: 
   blockType: 2
-  nounType: 1
+  nounType: 0
   propertyType: 0
+  nounTextType: 1
+  propertyTextType: 0
   blockSprite: {fileID: 21300000, guid: c578c8dfc7c806a48a96c31e832621b2, type: 3}

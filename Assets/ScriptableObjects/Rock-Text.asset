@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Rock-Text
   m_EditorClassIdentifier: 
   blockType: 2
-  nounType: 3
+  nounType: 0
   propertyType: 0
+  nounTextType: 3
+  propertyTextType: 0
   blockSprite: {fileID: 21300000, guid: 0cc3007a2ab3e5e4ba837cbcb4150911, type: 3}

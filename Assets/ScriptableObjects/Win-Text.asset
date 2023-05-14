@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blockType: 1
   nounType: 0
-  propertyType: 2
+  propertyType: 0
+  nounTextType: 0
+  propertyTextType: 2
   blockSprite: {fileID: 21300000, guid: 952e4454ccff9f94abfda2a406c7e10d, type: 3}
