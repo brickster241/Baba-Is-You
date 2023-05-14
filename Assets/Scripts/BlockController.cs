@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,10 +14,18 @@ public class BlockController : MonoBehaviour
     public PropertySM propertySM;
     public bool isBlockMovementPossible;
     public bool isMovementCalculated;
+    public Animator anim;
 
     private void Awake() {
-        sr = GetComponent<SpriteRenderer>(); 
+        sr = GetComponent<SpriteRenderer>();
+        anim = GetComponent<Animator>();
         propertySM = new PropertySM(this);
+    }
+
+    public void setAnimation(BlockScriptableObjectList blockConfigs) {
+        BlockScriptableObject blockConfig = Array.Find(blockConfigs.blockConfigs, item => item.blockType == blockType && item.nounType == nounType && item.nounTextType == nounText && item.propertyTextType == propertyText);
+        if (blockConfig != null)
+            anim.Play(blockConfig.stateName);
     }
 
     public void AddProperty(PropertyType property) {

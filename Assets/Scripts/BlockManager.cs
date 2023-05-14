@@ -10,6 +10,7 @@ public class BlockManager : MonoBehaviour
     private Dictionary<BlockType, List<BlockController>> blocksWithBlockType;
     private NounService nounService;
     private RuleService ruleService;
+    [SerializeField] BlockScriptableObjectList blockConfigs;
 
     private void Awake() {
         blockControllers = new List<BlockController>();
@@ -27,6 +28,7 @@ public class BlockManager : MonoBehaviour
         GameObject[] blocks = GameObject.FindGameObjectsWithTag("Block");
         for (int i = 0; i < blocks.Length; i++) {
             BlockController blockController = blocks[i].GetComponent<BlockController>();
+            blockController.setAnimation(blockConfigs);
             blockControllers.Add(blockController);
             BlockType blockType = blockController.blockType;
             NounType nounType = blockController.nounType;

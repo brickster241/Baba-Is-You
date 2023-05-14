@@ -10,4 +10,5 @@ public class BlockScriptableObject : ScriptableObject {
     public NounType nounTextType;
     public PropertyType propertyTextType;
     public Sprite blockSprite;
+    public string stateName;
 }

@@ -18,3 +18,4 @@ MonoBehaviour:
   nounTextType: 0
   propertyTextType: 4
   blockSprite: {fileID: 21300000, guid: 36f14a8610aacf245988be9fcb13c13a, type: 3}
+  stateName: wall-noun
