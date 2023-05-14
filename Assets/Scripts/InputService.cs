@@ -28,7 +28,7 @@ public class InputService : MonoBehaviour
             } else {
                 direction = Vector2.zero;
             }
-            if (direction != Vector2.zero && !blockManager.isLevelComplete()) {
+            if (direction != Vector2.zero) {
                 StartCoroutine(TurnExecute(direction));
             }
         }
@@ -37,10 +37,14 @@ public class InputService : MonoBehaviour
 
     IEnumerator TurnExecute(Vector2 dir) {
         isTurnComplete = false;
+        blockManager.UpdateBlockPositionMatrix();
         blockManager.UpdateRules();
+        blockManager.UpdateBlockColors();
         blockManager.StartMovement(dir);
         yield return new WaitForSeconds(0.25f);
+        blockManager.UpdateBlockPositionMatrix();
         blockManager.UpdateRules();
+        blockManager.UpdateBlockColors();
         isTurnComplete = true;
         if (blockManager.isLevelComplete()) {
             Debug.Log("COMPLETE.");

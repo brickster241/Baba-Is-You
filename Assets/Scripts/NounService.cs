@@ -41,7 +41,6 @@ public class NounService
                 }
             }
         }
-
         for (int i = 0; i < blockControllers.Count; i++) {
             if (blockControllers[i].isBlockMovementPossible) {
                 blockControllers[i].Move(direction);

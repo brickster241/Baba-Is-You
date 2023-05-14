@@ -10,12 +10,14 @@ public class BlockManager : MonoBehaviour
     private Dictionary<BlockType, List<BlockController>> blocksWithBlockType;
     private NounService nounService;
     private RuleService ruleService;
+    private Dictionary<Vector3, List<BlockController>> blockPositionMatrix;
     [SerializeField] BlockScriptableObjectList blockConfigs;
 
     private void Awake() {
         blockControllers = new List<BlockController>();
         nounBlocks = new Dictionary<NounType, List<BlockController>>();
         blocksWithBlockType = new Dictionary<BlockType, List<BlockController>>();
+        blockPositionMatrix = new Dictionary<Vector3, List<BlockController>>();
 
         // NOUNBLOCKS
         for (int i = 0; i < Constants.nounTypes.Length; i++) {
@@ -53,6 +55,7 @@ public class BlockManager : MonoBehaviour
 
     public void StartMovement(Vector2 direction) {
         nounService.StartMovement(direction);
+        UpdateBlockPositionMatrix();
     }
 
     public void AddRule(NounType nounType, PropertyType property) {
@@ -89,17 +92,24 @@ public class BlockManager : MonoBehaviour
         for (int i = 0; i < Constants.directions.Length; i++) {
             adjBlocks[Constants.directions[i]] = null;
         }
+        List<BlockController> nearbyBlocks = new List<BlockController>();
+        nearbyBlocks.AddRange(GetAdjacentBlocksInDirection(blockController, Vector2.up));
+        nearbyBlocks.AddRange(GetAdjacentBlocksInDirection(blockController, Vector2.down));
+        nearbyBlocks.AddRange(GetAdjacentBlocksInDirection(blockController, Vector2.left));
+        nearbyBlocks.AddRange(GetAdjacentBlocksInDirection(blockController, Vector2.right));
+        
         Vector2 blockPos = new Vector2(blockController.transform.position.x, blockController.transform.position.y);
-        for (int i = 0; i < blockControllers.Count; i++) {
-            Vector2 pos = new Vector2(blockControllers[i].transform.position.x, blockControllers[i].transform.position.y);
-            if (pos - blockPos == Vector2.left && blockControllers[i].blockType == BlockType.NOUN_TEXT) {
-                adjBlocks[Vector2.left] = blockControllers[i];
-            } else if (pos - blockPos == Vector2.right && blockControllers[i].blockType == BlockType.PROPERTY_TEXT) {
-                adjBlocks[Vector2.right] = blockControllers[i];
-            } else if (pos - blockPos == Vector2.up && blockControllers[i].blockType == BlockType.NOUN_TEXT) {
-                adjBlocks[Vector2.up] = blockControllers[i];
-            } else if (pos - blockPos == Vector2.down && blockControllers[i].blockType == BlockType.PROPERTY_TEXT) {
-                adjBlocks[Vector2.down] = blockControllers[i];
+        for (int i = 0; i < nearbyBlocks.Count; i++) {
+            BlockController nearbyBlock = nearbyBlocks[i];
+            Vector2 pos = new Vector2(nearbyBlock.transform.position.x, nearbyBlock.transform.position.y);
+            if (pos - blockPos == Vector2.left && nearbyBlock.blockType == BlockType.NOUN_TEXT) {
+                adjBlocks[Vector2.left] = nearbyBlock;
+            } else if (pos - blockPos == Vector2.right && nearbyBlock.blockType == BlockType.PROPERTY_TEXT) {
+                adjBlocks[Vector2.right] = nearbyBlock;
+            } else if (pos - blockPos == Vector2.up && nearbyBlock.blockType == BlockType.NOUN_TEXT) {
+                adjBlocks[Vector2.up] = nearbyBlock;
+            } else if (pos - blockPos == Vector2.down && nearbyBlock.blockType == BlockType.PROPERTY_TEXT) {
+                adjBlocks[Vector2.down] = nearbyBlock;
             }
         }
         return adjBlocks;
@@ -120,15 +130,13 @@ public class BlockManager : MonoBehaviour
     }
 
     public List<BlockController> GetAdjacentBlocksInDirection(BlockController blockController, Vector2 direction) {
-        Vector2 blockPos = new Vector2(blockController.transform.position.x, blockController.transform.position.y); 
-        List<BlockController> adjBlocks = new List<BlockController>();
-        for (int i = 0; i < blockControllers.Count; i++) {
-            Vector2 position = new Vector2(blockControllers[i].transform.position.x, blockControllers[i].transform.position.y);
-            if (position - blockPos == direction) {
-                adjBlocks.Add(blockControllers[i]);
-            }
+        Vector3 targetPosition = blockController.transform.position + new Vector3(direction.x, direction.y, 0f);
+        if (blockPositionMatrix.ContainsKey(targetPosition)) {
+            return blockPositionMatrix[targetPosition];
+        } else {
+            blockPositionMatrix[targetPosition] = new List<BlockController>();
+            return blockPositionMatrix[targetPosition];
         }
-        return adjBlocks;
     }
 
     public bool isLevelComplete() {
@@ -157,5 +165,22 @@ public class BlockManager : MonoBehaviour
             propertyBlocks[property].Add(blockControllers[i]);
         }
         return propertyBlocks;
+    }
+
+    public void UpdateBlockPositionMatrix() {
+        blockPositionMatrix.Clear();
+        for (int i = 0; i < blockControllers.Count; i++) {
+            Vector3 position = blockControllers[i].transform.position;
+            if (blockPositionMatrix.ContainsKey(position)) {
+                blockPositionMatrix[position].Add(blockControllers[i]);
+            } else {
+                blockPositionMatrix[position] = new List<BlockController>();
+                blockPositionMatrix[position].Add(blockControllers[i]);
+            }
+        }
+    }
+
+    public void UpdateBlockColors() {
+        ruleService.UpdateTextBlockColors();
     }
 }

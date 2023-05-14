@@ -17,5 +17,5 @@ MonoBehaviour:
   propertyType: 4
   nounTextType: 0
   propertyTextType: 4
-  blockSprite: {fileID: 21300000, guid: 2aab01f0027ef074ab3ee178c37d4058, type: 3}
+  blockSprite: {fileID: 21300000, guid: dbb887ada5490b648a5fdde5566097aa, type: 3}
   stateName: is-text
