@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum NounType {
-    NONE,
-    BABA,
-    FLAG,
-    ROCK,
-    WALL
+    NONE = 0,
+    BABA = 1,
+    FLAG = 2,
+    ROCK = 3,
+    WALL = 4
 }

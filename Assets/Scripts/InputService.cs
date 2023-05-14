@@ -6,7 +6,7 @@ public class InputService : MonoBehaviour
 {
     Vector2 direction;
     bool isTurnComplete;
-    [SerializeField] NounService nounService;
+    [SerializeField] BlockManager blockManager;
 
     private void Awake() {
         direction = Vector2.zero;
@@ -28,17 +28,22 @@ public class InputService : MonoBehaviour
             } else {
                 direction = Vector2.zero;
             }
-            if (direction != Vector2.zero) {
-                nounService.StartMovement(direction);
-                StartCoroutine(TurnExecute());
+            if (direction != Vector2.zero && !blockManager.isLevelComplete()) {
+                StartCoroutine(TurnExecute(direction));
             }
         }
         
     }
 
-    IEnumerator TurnExecute() {
+    IEnumerator TurnExecute(Vector2 dir) {
         isTurnComplete = false;
+        blockManager.UpdateRules();
+        blockManager.StartMovement(dir);
         yield return new WaitForSeconds(0.25f);
+        blockManager.UpdateRules();
         isTurnComplete = true;
+        if (blockManager.isLevelComplete()) {
+            Debug.Log("COMPLETE.");
+        }
     }
 } 
