@@ -2601,6 +2601,10 @@ PrefabInstance:
       value: Block (8)
       objectReference: {fileID: 0}
     - target: {fileID: 4663107673362506964, guid: 3836bfba68aa75d40a218dd644c074f0, type: 3}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4663107673362506964, guid: 3836bfba68aa75d40a218dd644c074f0, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: c578c8dfc7c806a48a96c31e832621b2, type: 3}
@@ -4953,6 +4957,10 @@ PrefabInstance:
     - target: {fileID: 4663107673362506962, guid: 3836bfba68aa75d40a218dd644c074f0, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4663107673362506964, guid: 3836bfba68aa75d40a218dd644c074f0, type: 3}
+      propertyPath: m_FlipX
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4663107673362506964, guid: 3836bfba68aa75d40a218dd644c074f0, type: 3}
       propertyPath: m_Sprite

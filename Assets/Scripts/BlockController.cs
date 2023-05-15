@@ -44,6 +44,13 @@ public class BlockController : MonoBehaviour
         sr.color = new Color(1f, 1f, 1f, 0.4f);
     }
 
+    public void FlipSprite(Vector2 direction) {
+        if (direction == Vector2.right)
+            sr.flipX = false;
+        else if (direction == Vector2.left)
+            sr.flipX = true;
+    }
+
     public void Move(Vector2 direction) {
         transform.DOMove(transform.position + new Vector3(direction.x, direction.y, 0f), 0.25f);
     }
