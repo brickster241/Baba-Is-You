@@ -2,8 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Generics;
 
-public class BlockManager : MonoBehaviour
+public class BlockManager : GenericMonoSingleton<BlockManager>
 {
     private List<BlockController> blockControllers;
     private Dictionary<NounType, List<BlockController>> nounBlocks;
@@ -13,7 +14,7 @@ public class BlockManager : MonoBehaviour
     private Dictionary<Vector3, List<BlockController>> blockPositionMatrix;
     [SerializeField] BlockScriptableObjectList blockConfigs;
 
-    private void Awake() {
+    private void Start() {
         blockControllers = new List<BlockController>();
         nounBlocks = new Dictionary<NounType, List<BlockController>>();
         blocksWithBlockType = new Dictionary<BlockType, List<BlockController>>();
@@ -49,11 +50,11 @@ public class BlockManager : MonoBehaviour
         return nounBlocks;
     }
 
-    public void UpdateRules() {
+    private void UpdateRules() {
         ruleService.UpdateRules();
     }
 
-    public void StartMovement(Vector2 direction) {
+    private void StartMovement(Vector2 direction) {
         nounService.StartMovement(direction);
         UpdateBlockPositionMatrix();
     }
@@ -79,7 +80,7 @@ public class BlockManager : MonoBehaviour
         return GetBlocksOfBlockType(BlockType.OPERATOR);
     }
 
-    public List<BlockController> GetBlocksOfBlockType(BlockType blockType) {
+    private List<BlockController> GetBlocksOfBlockType(BlockType blockType) {
         return blocksWithBlockType[blockType];
     }
 
@@ -139,7 +140,7 @@ public class BlockManager : MonoBehaviour
         }
     }
 
-    public bool isLevelComplete() {
+    private bool isCurrentLevelComplete() {
         Dictionary<PropertyType, List<BlockController>> PropertyBlocks = GetBlocksOfPropertyType();
         List<BlockController> youBlocks = PropertyBlocks[PropertyType.YOU];
         List<BlockController> winBlocks = PropertyBlocks[PropertyType.WIN];
@@ -167,7 +168,7 @@ public class BlockManager : MonoBehaviour
         return propertyBlocks;
     }
 
-    public void UpdateBlockPositionMatrix() {
+    private void UpdateBlockPositionMatrix() {
         blockPositionMatrix.Clear();
         for (int i = 0; i < blockControllers.Count; i++) {
             Vector3 position = blockControllers[i].transform.position;
@@ -180,7 +181,47 @@ public class BlockManager : MonoBehaviour
         }
     }
 
-    public void UpdateBlockColors() {
+    private void UpdateBlockColors() {
         ruleService.UpdateTextBlockColors();
+    }
+
+    private bool isCurrentLevelFailed() {
+        Dictionary<PropertyType, List<BlockController>> PropertyBlocks = GetBlocksOfPropertyType();
+        List<BlockController> youBlocks = PropertyBlocks[PropertyType.YOU];
+        return youBlocks.Count == 0;
+    }
+
+    public void InvokeLevelComplete() {
+        UIService.Instance.OnLevelComplete();
+    }
+
+    public void InvokeLevelFailed() {
+        UIService.Instance.OnLevelFailed();
+    }
+
+    public IEnumerator ExecuteTurn(Vector2 dir) {
+        InputService.Instance.SetTurnComplete(false);
+        UpdateBlockPositionMatrix();
+        UpdateRules();
+        UpdateBlockColors();
+        StartMovement(dir);
+        yield return new WaitForSeconds(0.25f);
+        UpdateBlockPositionMatrix();
+        UpdateRules();
+        UpdateBlockColors();
+        CheckLevelConditions();
+        InputService.Instance.SetTurnComplete(true);
+    }
+
+
+
+    public void CheckLevelConditions() {
+        bool isLevelCompleted = isCurrentLevelComplete();
+        bool isLevelFailed = isCurrentLevelFailed();
+        if (isLevelCompleted) {
+            InvokeLevelComplete();
+        } else if (isLevelFailed) {
+            InvokeLevelFailed();
+        }
     }
 }

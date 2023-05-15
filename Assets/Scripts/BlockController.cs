@@ -54,4 +54,8 @@ public class BlockController : MonoBehaviour
     public void Move(Vector2 direction) {
         transform.DOMove(transform.position + new Vector3(direction.x, direction.y, 0f), 0.25f);
     }
+
+    public void InvokeLevelComplete() {
+        BlockManager.Instance.InvokeLevelComplete();
+    }
 }
