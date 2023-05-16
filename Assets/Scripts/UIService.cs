@@ -31,7 +31,12 @@ public class UIService : GenericMonoSingleton<UIService>
     }
 
     public void OnLevelComplete() {
-
+        int currentLevel = SceneManager.GetActiveScene().buildIndex;
+        int unlockedLevels = PlayerPrefs.GetInt("UnlockedLevels", 1);
+        int totalLevels = SceneManager.sceneCountInBuildSettings - 1;
+        if (currentLevel == unlockedLevels && unlockedLevels < totalLevels) {
+            PlayerPrefs.SetInt("UnlockedLevels", currentLevel + 1);
+        }
         levelCompleteUI.SetActive(true);
         FadeIn();
         canvasGroup.interactable = true;

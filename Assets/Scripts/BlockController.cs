@@ -41,7 +41,7 @@ public class BlockController : MonoBehaviour
     }
 
     public void DisableHighlightBlock() {
-        sr.color = new Color(1f, 1f, 1f, 0.4f);
+        sr.color = new Color(1f, 1f, 1f, 0.55f);
     }
 
     public void FlipSprite(Vector2 direction) {
