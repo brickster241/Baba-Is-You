@@ -10,7 +10,7 @@ namespace Services.Audio {
     */
     [System.Serializable]
     public class GameAudio {
-        public AudioType audioType;
+        public Enums.AudioType audioType;
         [HideInInspector]
         public AudioSource audioSrc;
         public AudioClip audioClip;
@@ -47,7 +47,7 @@ namespace Services.Audio {
             Parameters : 
             - audioType : AudioType to be played. 
         */
-        public void PlayAudio(AudioType audioType) {
+        public void PlayAudio(Enums.AudioType audioType) {
             GameAudio gameAudio = Array.Find(gameAudios, item => item.audioType == audioType);
             gameAudio.audioSrc.Play();
         }
@@ -57,7 +57,7 @@ namespace Services.Audio {
             Parameters : 
             - audioType : AudioType to be played. 
         */
-        public void StopAudio(AudioType audioType) {
+        public void StopAudio(Enums.AudioType audioType) {
             GameAudio gameAudio = Array.Find(gameAudios, item => item.audioType == audioType);
             gameAudio.audioSrc.Stop();
         }
