@@ -18,3 +18,4 @@ MonoBehaviour:
   nounTextType: 0
   propertyTextType: 1
   blockSprite: {fileID: 21300000, guid: 57b86f17277b8d4408d494fc0c1a514e, type: 3}
+  stateName: stop-text

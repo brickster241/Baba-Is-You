@@ -16,7 +16,7 @@ public class YouProperty : BaseProperty
     public override void AddProperty(PropertyType property)
     {
         if (property == PropertyType.WIN) {
-            Debug.Log("GAME WIN.");
+            propertySM.InvokeLevelComplete();
         }
         base.AddProperty(property);
         propertySM.SetPropertyStatus(property, true);

@@ -18,3 +18,4 @@ MonoBehaviour:
   nounTextType: 0
   propertyTextType: 4
   blockSprite: {fileID: 21300000, guid: dbb887ada5490b648a5fdde5566097aa, type: 3}
+  stateName: is-text

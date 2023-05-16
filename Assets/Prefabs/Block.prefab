@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4663107673362506965}
   - component: {fileID: 4663107673362506964}
   - component: {fileID: 4663107673362506967}
+  - component: {fileID: 1348174677958453323}
   - component: {fileID: 3806272627193471650}
   m_Layer: 6
   m_Name: Block
@@ -28,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 4663107673362506962}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.9, y: 0.9, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -104,6 +105,27 @@ MonoBehaviour:
   propertyText: 4
   isBlockMovementPossible: 0
   isMovementCalculated: 0
+--- !u!95 &1348174677958453323
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4663107673362506962}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c0df44671c743ac44b6e6cf1caea767c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &3806272627193471650
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117,9 +139,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockType: 3
-  propertyType: 0
+  propertyType: 4
   nounType: 0
   nounTextType: 0
   propertyTextType: 0
   defaultSprite: {fileID: -5177388603050735206, guid: 71ebafeef3c03457483266a33ab2b270, type: 3}
   blockConfigurations: {fileID: 11400000, guid: b2a5b6b502233e34b9fb89b440757f8b, type: 2}
+  animator: {fileID: 1348174677958453323}

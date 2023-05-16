@@ -36,28 +36,22 @@ public class NounService
 
         for (int i = 0; i < blockControllers.Count; i++) {
             if (blockControllers[i].propertySM.GetCurrentDominantProperty() == PropertyType.YOU) {
+                blockControllers[i].FlipSprite(direction);
                 if (!blockControllers[i].isMovementCalculated) {
                     blockControllers[i].isBlockMovementPossible = IsMovementPossible(blockControllers[i], direction);
                 }
             }
         }
-
         for (int i = 0; i < blockControllers.Count; i++) {
             if (blockControllers[i].isBlockMovementPossible) {
                 blockControllers[i].Move(direction);
             }
         }
-
     }
 
     private bool IsMovementPossible(BlockController blockController, Vector2 direction) {
         if (blockController.isMovementCalculated)
             return blockController.isBlockMovementPossible;
-        if (blockController.propertySM.GetCurrentDominantProperty() == PropertyType.STOP) {
-            blockController.isMovementCalculated = true;
-            blockController.isBlockMovementPossible = false;
-            return false;
-        }
         if (!blockManager.isMovementInsideGrid(blockController, direction)) {
             blockController.isMovementCalculated = true;
             blockController.isBlockMovementPossible = false;
@@ -65,10 +59,26 @@ public class NounService
         }
         List<BlockController> adjBlocks = blockManager.GetAdjacentBlocksInDirection(blockController, direction);
         bool isMovementPossible = true;
+        bool isStopBlockPresent = false;
         for (int i = 0; i < adjBlocks.Count; i++) {
             PropertyType property = adjBlocks[i].propertySM.GetCurrentDominantProperty();
-            if (property == PropertyType.YOU || property == PropertyType.PUSH || property == PropertyType.STOP) {
-                isMovementPossible = isMovementPossible && IsMovementPossible(adjBlocks[i], direction);
+            if (property == PropertyType.STOP) {
+                isStopBlockPresent = true;
+                break;
+            }
+        }
+        if (isStopBlockPresent) {
+            isMovementPossible = false;
+            for (int i = 0; i < adjBlocks.Count; i++) {
+                adjBlocks[i].isMovementCalculated = true;
+                adjBlocks[i].isBlockMovementPossible = false;
+            }
+        } else {
+            for (int i = 0; i < adjBlocks.Count; i++) {
+                PropertyType property = adjBlocks[i].propertySM.GetCurrentDominantProperty();
+                if (property == PropertyType.YOU || property == PropertyType.PUSH) {
+                    isMovementPossible = isMovementPossible && IsMovementPossible(adjBlocks[i], direction);
+                }
             }
         }
         blockController.isMovementCalculated = true;

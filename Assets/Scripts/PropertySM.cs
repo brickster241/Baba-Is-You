@@ -32,6 +32,10 @@ public class PropertySM
         propertyStatus[property] = isActive;
     }
 
+    public void InvokeLevelComplete() {
+        blockController.InvokeLevelComplete();
+    }
+
     public void AddProperty(PropertyType property) {
         currentProperty.AddProperty(property);
     }

@@ -18,3 +18,4 @@ MonoBehaviour:
   nounTextType: 3
   propertyTextType: 4
   blockSprite: {fileID: 21300000, guid: 0cc3007a2ab3e5e4ba837cbcb4150911, type: 3}
+  stateName: rock-text

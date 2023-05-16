@@ -1,14 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Generics;
 
-public class InputService : MonoBehaviour
+public class InputService : GenericMonoSingleton<InputService>
 {
     Vector2 direction;
     bool isTurnComplete;
-    [SerializeField] BlockManager blockManager;
 
-    private void Awake() {
+    private void Start() {
         direction = Vector2.zero;
         isTurnComplete = true;
     }
@@ -16,7 +16,7 @@ public class InputService : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isTurnComplete) {
+        if (isTurnComplete && !UIService.Instance.isUIVisible) {
             if (Input.GetKeyDown(KeyCode.UpArrow)) {
                 direction = Vector2.up;
             } else if (Input.GetKeyDown(KeyCode.DownArrow)) {
@@ -27,23 +27,22 @@ public class InputService : MonoBehaviour
                 direction = Vector2.left;
             } else {
                 direction = Vector2.zero;
+                if (Input.GetKeyDown(KeyCode.Space)) {
+                    UIService.Instance.OnLevelPaused();
+                }
             }
-            if (direction != Vector2.zero && !blockManager.isLevelComplete()) {
-                StartCoroutine(TurnExecute(direction));
+            if (direction != Vector2.zero) {
+                TurnExecute(direction);
             }
         }
         
     }
 
-    IEnumerator TurnExecute(Vector2 dir) {
-        isTurnComplete = false;
-        blockManager.UpdateRules();
-        blockManager.StartMovement(dir);
-        yield return new WaitForSeconds(0.25f);
-        blockManager.UpdateRules();
-        isTurnComplete = true;
-        if (blockManager.isLevelComplete()) {
-            Debug.Log("COMPLETE.");
-        }
+    private void TurnExecute(Vector2 dir) {
+        StartCoroutine(BlockManager.Instance.ExecuteTurn(dir));
+    }
+
+    public void SetTurnComplete(bool value) {
+        isTurnComplete = value;
     }
 } 
