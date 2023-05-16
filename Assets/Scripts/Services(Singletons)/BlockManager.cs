@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Generics;
+using Services.Audio;
 
 public class BlockManager : GenericMonoSingleton<BlockManager>
 {
@@ -200,6 +201,7 @@ public class BlockManager : GenericMonoSingleton<BlockManager>
     }
 
     public IEnumerator ExecuteTurn(Vector2 dir) {
+        AudioService.Instance.PlayAudio(AudioType.TURN);
         InputService.Instance.SetTurnComplete(false);
         UpdateBlockPositionMatrix();
         UpdateRules();

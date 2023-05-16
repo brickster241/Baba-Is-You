@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
 using Generics;
+using Services.Audio;
 
 public class UIService : GenericMonoSingleton<UIService>
 {
@@ -32,6 +33,7 @@ public class UIService : GenericMonoSingleton<UIService>
     }
 
     public void OnLevelComplete() {
+        AudioService.Instance.PlayAudio(AudioType.LEVEL_COMPLETE);
         int currentLevel = SceneManager.GetActiveScene().buildIndex;
         int unlockedLevels = PlayerPrefs.GetInt("UnlockedLevels", 1);
         int totalLevels = SceneManager.sceneCountInBuildSettings - 1;
@@ -45,6 +47,7 @@ public class UIService : GenericMonoSingleton<UIService>
     }
 
     public void OnLevelFailed() {
+        AudioService.Instance.PlayAudio(AudioType.LEVEL_FAILED);
         levelFailedUI.SetActive(true);
         FadeIn();
         canvasGroup.interactable = true;
@@ -52,6 +55,7 @@ public class UIService : GenericMonoSingleton<UIService>
     }
 
     public void OnLevelPaused() {
+        AudioService.Instance.PlayAudio(AudioType.BUTTON_CLICK);
         levelPausedUI.SetActive(true);
         FadeIn();
         canvasGroup.interactable = true;

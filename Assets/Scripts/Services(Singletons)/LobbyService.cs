@@ -6,6 +6,7 @@ using DG.Tweening;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
+using Services.Audio;
 
 public class LobbyService : GenericMonoSingleton<LobbyService>
 {
@@ -17,8 +18,8 @@ public class LobbyService : GenericMonoSingleton<LobbyService>
     CanvasGroup currentCanvasGroup = null;
 
     private void Start() {
-        LevelLoaderService.Instance.TriggerSceneStart();
         SwitchUI(LobbyUIType.MAIN);
+        LevelLoaderService.Instance.TriggerSceneStart();
         EnableButtons();
     }
 
@@ -51,6 +52,7 @@ public class LobbyService : GenericMonoSingleton<LobbyService>
     }
 
     public void LoadLevel(int level) {
+        AudioService.Instance.PlayAudio(AudioType.BUTTON_CLICK);
         LevelLoaderService.Instance.LoadScene(level);
     }
 
@@ -63,6 +65,7 @@ public class LobbyService : GenericMonoSingleton<LobbyService>
     }
 
     private void SwitchUI(LobbyUIType lobbyUIType) {
+        AudioService.Instance.PlayAudio(AudioType.UI_SWITCH);
         if (currentLobbyUIType != LobbyUIType.NONE) {
             FadeOut(currentCanvasGroup, () => {
                 currentCanvasGroup.interactable = false;

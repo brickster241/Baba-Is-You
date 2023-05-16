@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Generics;
 using UnityEngine.SceneManagement;
+using Services.Audio;
 
 public class LevelLoaderService : GenericMonoSingleton<LevelLoaderService>
 {
@@ -14,6 +15,7 @@ public class LevelLoaderService : GenericMonoSingleton<LevelLoaderService>
     }
 
     public void TriggerSceneEnd() {
+        AudioService.Instance.PlayAudio(AudioType.SCENE_CHANGE);
         crossfade.gameObject.SetActive(true);
         crossfade.SetTrigger("SceneEnd");
     }

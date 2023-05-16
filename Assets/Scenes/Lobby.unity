@@ -172,6 +172,81 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockConfigs: {fileID: 11400000, guid: b2a5b6b502233e34b9fb89b440757f8b, type: 2}
+--- !u!1 &1559095365
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1559095366}
+  - component: {fileID: 1559095367}
+  m_Layer: 0
+  m_Name: AudioService
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1559095366
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1559095365}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1559095367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1559095365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04b4aad9cf5d7664fbc19b6b8b3fce79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameAudios:
+  - audioType: 0
+    audioSrc: {fileID: 0}
+    audioClip: {fileID: 8300000, guid: d33cd857919c7f8408eb58716bc84e9d, type: 3}
+    loop: 0
+    volume: 0.5
+  - audioType: 1
+    audioSrc: {fileID: 0}
+    audioClip: {fileID: 8300000, guid: dcc11f5727953ff45ba1bad16fa07fa6, type: 3}
+    loop: 0
+    volume: 0.5
+  - audioType: 2
+    audioSrc: {fileID: 0}
+    audioClip: {fileID: 8300000, guid: 733e8de56464c384888e3a1c092a9969, type: 3}
+    loop: 0
+    volume: 0.25
+  - audioType: 3
+    audioSrc: {fileID: 0}
+    audioClip: {fileID: 8300000, guid: fdcbfc187fd30704d944fdd63082bcf8, type: 3}
+    loop: 0
+    volume: 1
+  - audioType: 4
+    audioSrc: {fileID: 0}
+    audioClip: {fileID: 8300000, guid: a9e8022e3a075c7498c21689d752cd93, type: 3}
+    loop: 0
+    volume: 0.75
+  - audioType: 5
+    audioSrc: {fileID: 0}
+    audioClip: {fileID: 8300000, guid: d33cd857919c7f8408eb58716bc84e9d, type: 3}
+    loop: 0
+    volume: 1
 --- !u!1001 &1670446446
 PrefabInstance:
   m_ObjectHideFlags: 0
