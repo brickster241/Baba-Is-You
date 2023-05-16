@@ -14,6 +14,7 @@ public class UIService : GenericMonoSingleton<UIService>
     [SerializeField] GameObject levelPausedUI;
 
     private void Start() {
+        LevelLoaderService.Instance.TriggerSceneStart();
         isUIVisible = false;
     }
 
@@ -58,16 +59,16 @@ public class UIService : GenericMonoSingleton<UIService>
     }
 
     public void OnRestartButtonClick() {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        LevelLoaderService.Instance.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void OnNextButtonClick() {
         int buildIndex = SceneManager.GetActiveScene().buildIndex;
-        SceneManager.LoadScene((buildIndex + 1) % SceneManager.sceneCountInBuildSettings);    
+        LevelLoaderService.Instance.LoadScene((buildIndex + 1) % SceneManager.sceneCountInBuildSettings);    
     }
 
     public void OnMainMenuButtonClick() {
-        SceneManager.LoadScene(0);
+        LevelLoaderService.Instance.LoadScene(0);
     }
 
     public void OnResumeButtonClick() {

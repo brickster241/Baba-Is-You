@@ -17,6 +17,7 @@ public class LobbyService : GenericMonoSingleton<LobbyService>
     CanvasGroup currentCanvasGroup = null;
 
     private void Start() {
+        LevelLoaderService.Instance.TriggerSceneStart();
         SwitchUI(LobbyUIType.MAIN);
         EnableButtons();
     }
@@ -50,7 +51,7 @@ public class LobbyService : GenericMonoSingleton<LobbyService>
     }
 
     public void LoadLevel(int level) {
-        SceneManager.LoadScene(level);
+        LevelLoaderService.Instance.LoadScene(level);
     }
 
     public void OnBackButtonClick() {
