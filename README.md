@@ -2,6 +2,8 @@
 - **Baba is You** is an award-winning puzzle game where you can change the rules by which you play. 
 - In every level, the rules themselves are present as blocks you can interact with. By manipulating them, you can change how the level works and cause surprising, unexpected interactions!
 - This is a clone of that famous game.
+- **Play** : [Play](https://brickster241.itch.io/baba-is-you)
+- **Demo** : [Demo](https://drive.google.com/file/d/1mT23zIoIDCJtPaU6Lc1bHkX1J38x0J4A/view?usp=sharing)
 
  <p align="center">
   <img src="https://github.com/brickster241/Baba-Is-You/assets/65897987/7f029a3a-8add-4037-b750-a54b72c42ef6"/>
@@ -28,5 +30,3 @@
     - Only way to create rules is **Left to Right / Top to Down**.
     - Highlighted Rules are Active.
 - Scene Transitions for smoother gameplay.
-
-### Demo : 
