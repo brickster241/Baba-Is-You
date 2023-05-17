@@ -11,6 +11,9 @@ using Block.Controller;
 using Enums;
 
 namespace Services.Block {
+    /*
+        MonoSingleton BlockManager class. Handles all the general block operations of the game. 
+    */
     public class BlockManager : GenericMonoSingleton<BlockManager>
     {
         private List<BlockController> blockControllers;
@@ -21,6 +24,10 @@ namespace Services.Block {
         private Dictionary<Vector3, List<BlockController>> blockPositionMatrix;
         [SerializeField] BlockScriptableObjectList blockConfigs;
 
+        /*
+            Initializes all the BlockControllers. Stores and fills dictionary based on NounType, BlockType.
+            Initializes RuleService, NounService classes which control Rule Blocks / Noun Blocks respectively.
+        */
         private void Start() {
             blockControllers = new List<BlockController>();
             nounBlocks = new Dictionary<NounType, List<BlockController>>();
@@ -49,31 +56,53 @@ namespace Services.Block {
             ruleService = new RuleService(this);
         }
 
+        /*
+            Fetches all the BlockControllers present in the scene.
+        */
         public List<BlockController> GetAllBlocks() {
             return blockControllers;
         }
 
+        /*
+            Returns the dictionary containing BlockControllers as values and nounType as keys.
+        */
         public Dictionary<NounType, List<BlockController>> GetNounBlocks() {
             return nounBlocks;
         }
 
+        /*
+            Updates rules based on position of rule blocks.
+        */
         private void UpdateRules() {
             ruleService.UpdateRules();
         }
 
+        /*
+            Starts Movement of Blocks based on Input direction.
+        */
         private void StartMovement(Vector2 direction) {
             nounService.StartMovement(direction);
             UpdateBlockPositionMatrix();
         }
 
+        /*
+            Adds Rule NOUN IS PROPERTY, calls NounService to add property to each block controlller of specified nounType.
+        */
         public void AddRule(NounType nounType, PropertyType property) {
             nounService.AddProperty(nounType, property);
         }
 
+        /*
+            Removes Rule NOUN IS PROPERTY, calls NounService to remove property to each block controlller of specified nounType.
+        */
         public void RemoveRule(NounType nounType, PropertyType property) {
             nounService.RemoveProperty(nounType, property);
         }
 
+        /*
+            Returns all blocks which are not Noun blocks and not operator blocks.
+            i.e. Retuns all NOUN_TEXT , PROPERTY_TEXT BlockType blocks.
+        */
         public List<BlockController> GetTextBlocks() {
             List<BlockController> propertyTextBlocks = GetBlocksOfBlockType(BlockType.PROPERTY_TEXT);
             List<BlockController> nounTextBlocks = GetBlocksOfBlockType(BlockType.NOUN_TEXT);
@@ -83,18 +112,31 @@ namespace Services.Block {
             return textBlocks;
         }
 
+        /*
+            Returns all IS Blocks, i.e. OPERATOR BlockType.
+        */
         public List<BlockController> GetOperatorBlocks() {
             return GetBlocksOfBlockType(BlockType.OPERATOR);
         }
 
+        /*
+            Returns all BlockControllers of specified BlockType.
+        */
         private List<BlockController> GetBlocksOfBlockType(BlockType blockType) {
             return blocksWithBlockType[blockType];
         }
 
+        /*
+            Returns all BlockControllers of specified NounType.
+        */
         public List<BlockController> GetBlocksOfNounType(NounType nounType) {
             return nounBlocks[nounType];
         }
 
+        /*
+            Returns all the text block controllers which are Adjacent to a block.
+            Returns a dictionary as only a single textBlock can be adjacent.
+        */
         public Dictionary<Vector2, BlockController> GetAdjacentTextBlocks(BlockController blockController) {
             Dictionary<Vector2, BlockController> adjBlocks = new Dictionary<Vector2, BlockController>();
             for (int i = 0; i < Constants.directions.Length; i++) {
@@ -123,20 +165,26 @@ namespace Services.Block {
             return adjBlocks;
         }
 
+        /*
+            Checks if Movement is Possible based on position and direction of movement.
+        */
         public bool isMovementInsideGrid(BlockController blockController, Vector2 direction) {
-            if (direction == Vector2.right && blockController.transform.position.x == 16) {
+            if (direction == Vector2.right && blockController.transform.position.x == Constants.GRID_MAX_X) {
                 return false;
-            } else if (direction == Vector2.left && blockController.transform.position.x == -16) {
+            } else if (direction == Vector2.left && blockController.transform.position.x == -Constants.GRID_MAX_X) {
                 return false;
-            } else if (direction == Vector2.up && blockController.transform.position.y == 8) {
+            } else if (direction == Vector2.up && blockController.transform.position.y == Constants.GRID_MAX_Y) {
                 return false;
-            } else if (direction == Vector2.down && blockController.transform.position.y == -8) {
+            } else if (direction == Vector2.down && blockController.transform.position.y == -Constants.GRID_MAX_Y) {
                 return false;
             } else {
                 return true;
             }
         }
 
+        /*
+            Returns all Block Controller adjacent to a block towards a particular direction. Uses BlockPositionMatrix to quickly fetch values.
+        */
         public List<BlockController> GetAdjacentBlocksInDirection(BlockController blockController, Vector2 direction) {
             Vector3 targetPosition = blockController.transform.position + new Vector3(direction.x, direction.y, 0f);
             if (blockPositionMatrix.ContainsKey(targetPosition)) {
@@ -147,6 +195,9 @@ namespace Services.Block {
             }
         }
 
+        /*
+            Checks if the current level is complete. Uses YOU and WIN blocks and checks for an intersection.
+        */
         private bool isCurrentLevelComplete() {
             Dictionary<PropertyType, List<BlockController>> PropertyBlocks = GetBlocksOfPropertyType();
             List<BlockController> youBlocks = PropertyBlocks[PropertyType.YOU];
@@ -163,6 +214,9 @@ namespace Services.Block {
             return positionSet.Count != youBlocks.Count + winBlocks.Count;
         }
 
+        /*
+            Returns a dictionary containing Dominant Property and Blocks Associated with it.
+        */
         private Dictionary<PropertyType, List<BlockController>> GetBlocksOfPropertyType() {
             Dictionary<PropertyType, List<BlockController>> propertyBlocks = new Dictionary<PropertyType, List<BlockController>>();
             for (int i = 0; i < Constants.propertyTypes.Length; i++) {
@@ -175,6 +229,9 @@ namespace Services.Block {
             return propertyBlocks;
         }
 
+        /*
+            Updates BlockPositionMatrix by filling the position keys and BlockControllers as values.
+        */
         private void UpdateBlockPositionMatrix() {
             blockPositionMatrix.Clear();
             for (int i = 0; i < blockControllers.Count; i++) {
@@ -188,24 +245,39 @@ namespace Services.Block {
             }
         }
 
+        /*
+            Updates Rule Block Colors based on rule activation. 
+        */
         private void UpdateBlockColors() {
             ruleService.UpdateTextBlockColors();
         }
 
+        /*
+            Checks if current Level cannot be completed. Is case when no. of YOU blocks are zero.
+        */
         private bool isCurrentLevelFailed() {
             Dictionary<PropertyType, List<BlockController>> PropertyBlocks = GetBlocksOfPropertyType();
             List<BlockController> youBlocks = PropertyBlocks[PropertyType.YOU];
             return youBlocks.Count == 0;
         }
 
+        /*
+            InvokeLevelComplete Method. Gets Called whenever Level is Complete.
+        */
         public void InvokeLevelComplete() {
             UIService.Instance.OnLevelComplete();
         }
-
-        public void InvokeLevelFailed() {
+        
+        /*
+            InvokeLevelFailed Method. Gets Called whenever Level is Failed.
+        */
+        private void InvokeLevelFailed() {
             UIService.Instance.OnLevelFailed();
         }
 
+        /*
+            ExecuteTurn Coroutine. Handles Logic for a single input turn.
+        */
         public IEnumerator ExecuteTurn(Vector2 dir) {
             AudioService.Instance.PlayAudio(Enums.AudioType.TURN);
             InputService.Instance.SetTurnComplete(false);
@@ -222,8 +294,10 @@ namespace Services.Block {
         }
 
 
-
-        public void CheckLevelConditions() {
+        /*
+            Checks all the conditions for which UI can be triggered.
+        */
+        private void CheckLevelConditions() {
             bool isLevelCompleted = isCurrentLevelComplete();
             bool isLevelFailed = isCurrentLevelFailed();
             if (isLevelCompleted) {

@@ -6,6 +6,10 @@ using Enums;
 using Block.Controller;
 
 namespace Services.Block {
+    /*
+        RuleService class. Not a singleton, but is called from BlockManager which is a singleton.. hence only one instance throughout the game.
+        Handles all the Operations for NOUN_TEXT, OPERATOR, PROPERTY_TEXT Blocks.
+    */
     public class RuleService
     {
         private BlockManager blockManager;
@@ -21,6 +25,9 @@ namespace Services.Block {
             SetActiveRules();
         }
 
+        /*
+            Sets Initial Rules for the game. Every block has a NONE Property and Non-NONE BLockType blocks have PUSH property.
+        */
         private void SetActiveRules() {
             int rows = Constants.nounTypes.Length;
             int cols = Constants.propertyTypes.Length;
@@ -42,6 +49,10 @@ namespace Services.Block {
             }
         }
 
+        /*
+            UpdateRules Method. Fetches Current RuleMatrix and compares with the initial RuleMatrix.
+            Based on comparision, Rules are added or removed.
+        */
         public void UpdateRules() {
             List<List<bool>> updatedRules = GetRuleMatrix();
             int rows = Constants.nounTypes.Length;
@@ -62,6 +73,9 @@ namespace Services.Block {
             activeRules = updatedRules;
         }
 
+        /*
+            GetRuleMatrix Method. Returns a 2d-List where matrix[NOUN][PROPERTY] = true.
+        */
         public List<List<bool>> GetRuleMatrix() {
             int rows = Constants.nounTypes.Length;
             int cols = Constants.propertyTypes.Length;
@@ -101,14 +115,23 @@ namespace Services.Block {
             return ruleMatrix;
         }
 
+        /*
+            Adds Rule to existing set of properties forthe specified nountype. Calls BlockManager.
+        */
         public void AddRule(NounType nounType, PropertyType property) {
             blockManager.AddRule(nounType, property);
         }
 
+        /*
+            Removes Rule from existing set of properties forthe specified nountype. Calls BlockManager.
+        */
         public void RemoveRule(NounType nounType, PropertyType property) {
             blockManager.RemoveRule(nounType, property);
         }
 
+        /*
+            Updates Text Block Color based on Rule Activation and adjacent Blocks.
+        */
         public void UpdateTextBlockColors() {
             for (int i = 0; i < textBlocks.Count; i++) {
                 BlockController textBlock = textBlocks[i];
@@ -121,6 +144,10 @@ namespace Services.Block {
             }
         }
 
+        /*
+            Updated TextBlock Color based on direction. Method is called on every NOUN_TEXT, PROPERTY_TEXT Block.
+            Highlights color if the block is part of the RULE.
+        */
         private void UpdateTextBlockColor(BlockController textBlock, Vector2 direction1, Vector2 direction2) {
             List<BlockController> nearRight = blockManager.GetAdjacentBlocksInDirection(textBlock, direction1);
             List<BlockController> farRight = blockManager.GetAdjacentBlocksInDirection(textBlock, direction1 * 2);

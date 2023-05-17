@@ -4,10 +4,17 @@ using UnityEngine;
 using Enums;
 
 namespace Block.StateMachine {
+    /*
+        StopProperty Class. Handles operations when BLOCK is in STOP state.
+        While BLOCK has STOP has its dominant property, it cannot be pushed & is not pass-through. 
+    */
     public class StopProperty : BaseProperty
     {
         public StopProperty(PropertySM propertySM) : base(propertySM) {}
 
+        /*
+            OnStateEnter Method. Executed when BLOCK enters STOP state.
+        */
         public override void OnStateEnter()
         {
             base.OnStateEnter();
@@ -15,6 +22,9 @@ namespace Block.StateMachine {
             sr.sortingOrder = 4;
         }
 
+        /*
+            AddProperty Method. Adds a property while BLOCK is in STOP state.
+        */
         public override void AddProperty(PropertyType property)
         {
             base.AddProperty(property);
@@ -25,6 +35,9 @@ namespace Block.StateMachine {
             }
         }
 
+        /*
+            RemoveProperty Method. Removes an existing property while BLOCK is in STOP state.
+        */
         public override void RemoveProperty(PropertyType property)
         {
             base.RemoveProperty(property);

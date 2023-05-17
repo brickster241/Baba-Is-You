@@ -6,6 +6,9 @@ using Enums;
 using Scriptables;
 
 namespace Services.Block {
+    /*
+        BlockEditService class. Attached to every block, used to modify block sprites.
+    */
     [ExecuteInEditMode]
     public class BlockEditService : MonoBehaviour
     {

@@ -6,6 +6,9 @@ using Services.UI;
 using Services.Block;
 
 namespace Services.IO {
+    /*
+        MonoSingleton InputService class. Handles all the Player Input which is then provided to BlockManager.
+    */
     public class InputService : GenericMonoSingleton<InputService>
     {
         Vector2 direction;
@@ -41,10 +44,16 @@ namespace Services.IO {
             
         }
 
+        /*
+            Executes Turn for a specific input direction.
+        */
         private void TurnExecute(Vector2 dir) {
             StartCoroutine(BlockManager.Instance.ExecuteTurn(dir));
         }
 
+        /*
+            Sets the Turn Complete attribute to value. Called inside the coroutine to ensure multiple inputs are not registered.
+        */
         public void SetTurnComplete(bool value) {
             isTurnComplete = value;
         }

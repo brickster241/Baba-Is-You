@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Enums {
+    /*
+        Enum for different types of Properties.
+    */
     public enum PropertyType {
         NONE = 4,
         YOU = 0,

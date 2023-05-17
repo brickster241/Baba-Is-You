@@ -5,6 +5,10 @@ using Block.Controller;
 using Enums;
 
 namespace Block.StateMachine {
+    /*
+        PropertySM Class. State Machine Class to handle different properties of a block.
+        Handles 4 properties. Their dominance has order : YOU > STOP > PUSH > WIN > NONE. Can have multiple properties active at the same time but only one will be dominant.
+    */
     public class PropertySM
     {
         public BlockController blockController;
@@ -16,7 +20,9 @@ namespace Block.StateMachine {
         private BaseProperty currentProperty = null;
         private Dictionary<PropertyType, bool> propertyStatus;
         
-        
+        /*
+            Initializes all the Property Types and sets default property to NONE.
+        */
         public PropertySM(BlockController blockController) {
             propertyStatus = new Dictionary<PropertyType, bool>();
             this.blockController = blockController;
@@ -31,22 +37,38 @@ namespace Block.StateMachine {
             SwitchState(PropertyType.NONE);
         }
 
+        /*
+            Sets Property'a Active Status to true / false. Used to keep track of all the active properties.
+        */
         public void SetPropertyStatus(PropertyType property, bool isActive) {
             propertyStatus[property] = isActive;
         }
 
+        /*
+            Invokes Level Completion Method of controller. Which then calls BlockManager to trigger Level Completion.
+        */
         public void InvokeLevelComplete() {
             blockController.InvokeLevelComplete();
         }
 
+        /*
+            Adds property to existing set of BLOCK properties.
+        */
         public void AddProperty(PropertyType property) {
             currentProperty.AddProperty(property);
         }
 
+        /*
+            Removes property from existing set of BLOCK Properties.
+        */
         public void RemoveProperty(PropertyType property) {
             currentProperty.RemoveProperty(property);
         }
 
+        /*
+            Switches Property State based on dominant Property order.
+            YOU > STOP > PUSH > WIN > NONE.
+        */
         public void SwitchState(PropertyType property) {
             if (currentProperty != null)
                 currentProperty.OnStateExit();
@@ -64,6 +86,9 @@ namespace Block.StateMachine {
             currentProperty.OnStateEnter();
         }
 
+        /*
+            Returns the Dominant Property amongst active properties.
+        */
         public PropertyType GetCurrentDominantProperty() {
             if (propertyStatus[PropertyType.YOU]) {
                 return PropertyType.YOU;

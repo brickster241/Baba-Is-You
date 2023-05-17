@@ -4,6 +4,9 @@ using UnityEngine;
 using Enums;
 
 namespace Scriptables {
+    /*
+        BlockScriptableObject to define Block Configurations.
+    */
     [CreateAssetMenu(fileName = "BlockScriptableObject", menuName = "Scriptable-Objects/BlockScriptableObject")]
     public class BlockScriptableObject : ScriptableObject {
         public BlockType blockType;

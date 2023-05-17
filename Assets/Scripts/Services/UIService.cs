@@ -8,6 +8,9 @@ using Services.Audio;
 using Services.LevelLoader;
 
 namespace Services.UI {
+    /*
+        MonoSingleton UIService class. Handles UI for the Scene. Manages UI for LevelCompletion, LevelPausing, LevelFailed.
+    */
     public class UIService : GenericMonoSingleton<UIService>
     {
         public bool isUIVisible;
@@ -21,19 +24,28 @@ namespace Services.UI {
             isUIVisible = false;
         }
 
-        public void FadeIn() {
+        /*
+            FadeIn Method. Fades in the Canvas Group.
+        */
+        private void FadeIn() {
             isUIVisible = true;
             canvasGroup.transform.position = new Vector3(0, 5f, 0);
             canvasGroup.DOFade(1f, 0.5f);
             canvasGroup.transform.DOMove(Vector3.zero, 0.5f);
         }
 
-        public void FadeOut(TweenCallback callback) {
+        /*
+            FadeOut Method. Fades Out the canvas Group.
+        */
+        private void FadeOut(TweenCallback callback) {
             canvasGroup.DOFade(0f, 0.5f).onComplete += callback;
             canvasGroup.transform.DOMove(new Vector3(0, -5, 0), 0.5f);
             isUIVisible = false;
         }
 
+        /*
+            Method is called when Level is Complete. Fades in the LevelComplete UI.
+        */
         public void OnLevelComplete() {
             AudioService.Instance.PlayAudio(Enums.AudioType.LEVEL_COMPLETE);
             int currentLevel = SceneManager.GetActiveScene().buildIndex;
@@ -48,6 +60,9 @@ namespace Services.UI {
             canvasGroup.blocksRaycasts = true;
         }
 
+        /*
+            Method is called when Level is Failed. Fades in the LevelFailed UI.
+        */
         public void OnLevelFailed() {
             AudioService.Instance.PlayAudio(Enums.AudioType.LEVEL_FAILED);
             levelFailedUI.SetActive(true);
@@ -56,6 +71,9 @@ namespace Services.UI {
             canvasGroup.blocksRaycasts = true;
         }
 
+        /*
+            Method is Called when Level is Paused. Fades in the LevelPaused UI.
+        */
         public void OnLevelPaused() {
             AudioService.Instance.PlayAudio(Enums.AudioType.BUTTON_CLICK);
             levelPausedUI.SetActive(true);
@@ -64,19 +82,31 @@ namespace Services.UI {
             canvasGroup.blocksRaycasts = true;
         }
 
+        /*
+            Restarts the Current Level.
+        */
         public void OnRestartButtonClick() {
             LevelLoaderService.Instance.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
+        /*
+            Loads the Next Level.
+        */
         public void OnNextButtonClick() {
             int buildIndex = SceneManager.GetActiveScene().buildIndex;
             LevelLoaderService.Instance.LoadScene((buildIndex + 1) % SceneManager.sceneCountInBuildSettings);    
         }
 
+        /*
+            Loads the Main Menu Scene.
+        */
         public void OnMainMenuButtonClick() {
             LevelLoaderService.Instance.LoadScene(0);
         }
 
+        /*
+            Fades out the current scene. Resumes the gameplay.
+        */
         public void OnResumeButtonClick() {
             FadeOut(() => {
                 canvasGroup.interactable = false;

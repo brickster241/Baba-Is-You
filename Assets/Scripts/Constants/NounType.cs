@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Enums {
+    /*
+        Enum for different types of nouns.
+    */
     public enum NounType {
         NONE = 0,
         BABA = 1,

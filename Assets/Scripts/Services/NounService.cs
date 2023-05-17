@@ -5,6 +5,10 @@ using Block.Controller;
 using Enums;
 
 namespace Services.Block {
+    /*
+        NounService class. Not a singleton, but is called from BlockManager which is a singleton.. hence only one instance throughout the game.
+        Handles all the Operations for NOUN Blocks.
+    */
     public class NounService
     {
         private BlockManager blockManager;
@@ -18,6 +22,9 @@ namespace Services.Block {
             nounBlocks = this.blockManager.GetNounBlocks();
         }
 
+        /*
+            Adds Property property to the specified NounType using Dictionary.
+        */
         public void AddProperty(NounType nounType, PropertyType property) {
             List<BlockController> blocks = blockManager.GetBlocksOfNounType(nounType);
             for (int i = 0; i < blocks.Count; i++) {
@@ -25,12 +32,20 @@ namespace Services.Block {
             }
         }
 
+        /*
+            Removes Property from the specified NounType using Dictionary.
+        */
         public void RemoveProperty(NounType nounType, PropertyType property) {
             for (int i = 0; i < nounBlocks[nounType].Count; i++) {
                 nounBlocks[nounType][i].RemoveProperty(property);
             }
         }
 
+        /*
+            StartMovement Method. Initializes movement variables for each block.
+            For each YOU Block, movement is calculated.
+            Moves the variables whose movement is possible.
+        */
         public void StartMovement(Vector2 direction) {
             for (int i = 0; i < blockControllers.Count; i++) {
                 blockControllers[i].isMovementCalculated = false;
@@ -52,6 +67,10 @@ namespace Services.Block {
             }
         }
 
+        /*
+            IsMovementPossible Method. Returns whether the connected components attached with this block can be moved or not.
+            Uses Recursion to set adjacent Blocks and their movement properties as well.
+        */
         private bool IsMovementPossible(BlockController blockController, Vector2 direction) {
             if (blockController.isMovementCalculated)
                 return blockController.isBlockMovementPossible;
