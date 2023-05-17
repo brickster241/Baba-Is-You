@@ -221,32 +221,32 @@ MonoBehaviour:
     audioSrc: {fileID: 0}
     audioClip: {fileID: 8300000, guid: d33cd857919c7f8408eb58716bc84e9d, type: 3}
     loop: 0
-    volume: 0.5
+    volume: 0.084
   - audioType: 1
     audioSrc: {fileID: 0}
     audioClip: {fileID: 8300000, guid: dcc11f5727953ff45ba1bad16fa07fa6, type: 3}
     loop: 0
-    volume: 0.5
+    volume: 0.129
   - audioType: 2
     audioSrc: {fileID: 0}
     audioClip: {fileID: 8300000, guid: 733e8de56464c384888e3a1c092a9969, type: 3}
     loop: 0
-    volume: 0.25
+    volume: 0.174
   - audioType: 3
     audioSrc: {fileID: 0}
     audioClip: {fileID: 8300000, guid: fdcbfc187fd30704d944fdd63082bcf8, type: 3}
     loop: 0
-    volume: 1
+    volume: 0.191
   - audioType: 4
     audioSrc: {fileID: 0}
     audioClip: {fileID: 8300000, guid: a9e8022e3a075c7498c21689d752cd93, type: 3}
     loop: 0
-    volume: 0.75
+    volume: 0.213
   - audioType: 5
     audioSrc: {fileID: 0}
     audioClip: {fileID: 8300000, guid: d33cd857919c7f8408eb58716bc84e9d, type: 3}
     loop: 0
-    volume: 1
+    volume: 0.486
 --- !u!1001 &1670446446
 PrefabInstance:
   m_ObjectHideFlags: 0

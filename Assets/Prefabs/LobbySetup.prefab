@@ -800,9 +800,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UIService, Assembly-CSharp
-        m_MethodName: OnNextButtonClick
+      - m_Target: {fileID: 5617423383246045812}
+        m_TargetAssemblyTypeName: Services.UI.LobbyService, Assembly-CSharp
+        m_MethodName: QuitApplication
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

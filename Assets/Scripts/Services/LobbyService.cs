@@ -30,6 +30,13 @@ namespace Services.UI {
         }
 
         /*
+            Quits the Application.
+        */
+        public void QuitApplication() {
+            Application.Quit();
+        }
+
+        /*
             Enables Buttons based on Unlocked Levels.
         */
         private void EnableButtons() {
